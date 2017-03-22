@@ -11,3 +11,5 @@ https://github.com/tensorflow/models/issues/466</br>
 https://drive.google.com/open?id=0Bw6m_66JSYLlNlRDUTRqcm9Jcjg</br>
 ## finetuned
 https://drive.google.com/file/d/0Bw6m_66JSYLlRFVKQ2tGcUJaWjA/view?usp=sharing</br>
+# nvidia-smi 记录显卡信息到csv文件
+nvidia-smi --query-gpu=index,uuid,utilization.gpu,timestamp,pstate,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu --format=csv -l 10 -f ./GPU-0316-stats.csv</br>
