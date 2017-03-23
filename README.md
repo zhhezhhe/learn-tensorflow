@@ -15,3 +15,7 @@ https://drive.google.com/file/d/0Bw6m_66JSYLlRFVKQ2tGcUJaWjA/view?usp=sharing</b
 nvidia-smi --query-gpu=index,uuid,utilization.gpu,timestamp,pstate,utilization.memory,memory.total,memory.free,memory.used,temperature.gpu --format=csv -l 10 -f ./GPU-0316-stats.csv</br>
 # 显示csv中log信息
 tail -f *.csv
+# 显示程序使用情况
+ps aux | grep python
+# kill 进程
+kill -9 22222
