@@ -19,3 +19,5 @@ tail -f *.csv
 ps aux | grep python
 # kill 进程
 kill -9 22222
+# 修改服务器别名
+sudo vim /etc/hosts
