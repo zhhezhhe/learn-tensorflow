@@ -21,3 +21,7 @@ ps aux | grep python
 kill -9 22222
 # 修改服务器别名
 sudo vim /etc/hosts
+# tensorboard
+MODEL_DIR="${HOME}/im2txt/model"</br>
+{# Run a TensorBoard server.}</br>
+tensorboard --logdir="${MODEL_DIR}"</br>
