@@ -1,13 +1,13 @@
 #!/bin/sh
 
-outpath=~/zhenghe/im2txt/im2txt_finetune_log_gpu_201704043.csv
+outpath=/home/store-1-img/zhenghe/im2txt/im2txt_finetune_log_gpu_20170418.csv
 
-cd ~/models/im2txt/
-MSCOCO_DIR="${HOME}/zhenghe/im2txt/data/mscoco"
-INCEPTION_CHECKPOINT="${HOME}/zhenghe/im2txt/data/inception_v3.ckpt"
-MODEL_DIR="${HOME}/zhenghe/im2txt/model"
+cd /home/store-1-img/zhenghe/models/im2txt/
+MSCOCO_DIR="/home/store-1-img/zhenghe/im2txt/data/mscoco"
+INCEPTION_CHECKPOINT="/home/store-1-img/zhenghe/im2txt/data/inception_v3.ckpt"
+MODEL_DIR="/home/store-1-img/zhenghe/im2txt/model"
 bazel build -c opt im2txt/...
-export CUDA_VISIBLE_DEVICES="3"
+export CUDA_VISIBLE_DEVICES="1"
 # Restart the training script with --train_inception=true.
 bazel-bin/im2txt/train \
   --input_file_pattern="${MSCOCO_DIR}/train-?????-of-00256" \
