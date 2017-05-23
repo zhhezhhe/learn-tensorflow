@@ -1,12 +1,12 @@
 #!/bin/sh
-cd ~/models/im2txt/
-CHECKPOINT_PATH="${HOME}/zhenghe/im2txt/model/train"
-VOCAB_FILE="${HOME}/zhenghe/im2txt/data/mscoco/word_counts.txt"
+cd /media/zh/E/models/im2txt/
+CHECKPOINT_PATH="/media/zh/E/im2txt/model/train"
+VOCAB_FILE="/media/zh/E/im2txt/data/mscoco/word_counts.txt"
 #IMAGE_FILE="${HOME}/zhenghe/im2txt/data/mscoco/raw-data/val2014/COCO_val2014_000000224477.jpg"
 #IMAGE_FILE="${HOME}/zhenghe/imageForTest/images_coco/COCO_train2014_000000029799.jpg"
 #bazel build -c opt im2txt/run_inference
-export CUDA_VISIBLE_DEVICES=""
-file=`ls ${HOME}/zhenghe/imageForTest/images_coco/*.jpg`
+export CUDA_VISIBLE_DEVICES="0"
+file=`ls /media/zh/E/images_coco/a/*.jpg`
 IMAGE_FILE=''
 for name in $file
 do

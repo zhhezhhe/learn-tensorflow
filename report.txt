@@ -1,0 +1,96 @@
+--------------------------------------------------------------------------------
+Processing file '/media/zh/E/models/slim/train_image_classifier.py'
+ outputting to 'train_image_classifier1.py'
+--------------------------------------------------------------------------------
+
+'/media/zh/E/models/slim/train_image_classifier.py' Line 320
+--------------------------------------------------------------------------------
+
+Renamed function 'tf.scalar_summary' to 'tf.summary.scalar'
+
+    Old:   summaries.append(tf.scalar_summary('training/Learning Rate', learning_rate))
+                            ~~~~~~~~~~~~~~~~~                                           
+    New:   summaries.append(tf.summary.scalar('training/Learning Rate', learning_rate))
+                            ~~~~~~~~~~~~~~~~~                                           
+
+'/media/zh/E/models/slim/train_image_classifier.py' Line 546
+--------------------------------------------------------------------------------
+
+Renamed function 'tf.scalar_summary' to 'tf.summary.scalar'
+
+    Old:     summaries.add(tf.scalar_summary('total_loss', total_loss,
+                           ~~~~~~~~~~~~~~~~~                           
+    New:     summaries.add(tf.summary.scalar('total_loss', total_loss,
+                           ~~~~~~~~~~~~~~~~~                           
+
+'/media/zh/E/models/slim/train_image_classifier.py' Line 520
+--------------------------------------------------------------------------------
+
+Renamed function 'tf.scalar_summary' to 'tf.summary.scalar'
+
+    Old:       summaries.add(tf.scalar_summary('learning_rate', learning_rate,
+                             ~~~~~~~~~~~~~~~~~                                 
+    New:       summaries.add(tf.summary.scalar('learning_rate', learning_rate,
+                             ~~~~~~~~~~~~~~~~~                                 
+
+'/media/zh/E/models/slim/train_image_classifier.py' Line 492
+--------------------------------------------------------------------------------
+
+Renamed function 'tf.histogram_summary' to 'tf.summary.histogram'
+
+    Old:       summaries.add(tf.histogram_summary('activations/' + end_point, x))
+                             ~~~~~~~~~~~~~~~~~~~~                                 
+    New:       summaries.add(tf.summary.histogram('activations/' + end_point, x))
+                             ~~~~~~~~~~~~~~~~~~~~                                 
+
+'/media/zh/E/models/slim/train_image_classifier.py' Line 493
+--------------------------------------------------------------------------------
+
+Renamed function 'tf.scalar_summary' to 'tf.summary.scalar'
+
+    Old:       summaries.add(tf.scalar_summary('sparsity/' + end_point,
+                             ~~~~~~~~~~~~~~~~~                          
+    New:       summaries.add(tf.summary.scalar('sparsity/' + end_point,
+                             ~~~~~~~~~~~~~~~~~                          
+
+'/media/zh/E/models/slim/train_image_classifier.py' Line 498
+--------------------------------------------------------------------------------
+
+Renamed function 'tf.scalar_summary' to 'tf.summary.scalar'
+
+    Old:       summaries.add(tf.scalar_summary('losses/%s' % loss.op.name, loss))
+                             ~~~~~~~~~~~~~~~~~                                    
+    New:       summaries.add(tf.summary.scalar('losses/%s' % loss.op.name, loss))
+                             ~~~~~~~~~~~~~~~~~                                    
+
+'/media/zh/E/models/slim/train_image_classifier.py' Line 564
+--------------------------------------------------------------------------------
+
+Renamed function 'tf.merge_summary' to 'tf.summary.merge'
+
+    Old:     summary_op = tf.merge_summary(list(summaries), name='summary_op')
+                          ~~~~~~~~~~~~~~~~                                     
+    New:     summary_op = tf.summary.merge(list(summaries), name='summary_op')
+                          ~~~~~~~~~~~~~~~~                                     
+
+'/media/zh/E/models/slim/train_image_classifier.py' Line 502
+--------------------------------------------------------------------------------
+
+Renamed function 'tf.histogram_summary' to 'tf.summary.histogram'
+
+    Old:       summaries.add(tf.histogram_summary(variable.op.name, variable))
+                             ~~~~~~~~~~~~~~~~~~~~                              
+    New:       summaries.add(tf.summary.histogram(variable.op.name, variable))
+                             ~~~~~~~~~~~~~~~~~~~~                              
+
+'/media/zh/E/models/slim/train_image_classifier.py' Line 319
+--------------------------------------------------------------------------------
+
+Renamed function 'tf.histogram_summary' to 'tf.summary.histogram'
+
+    Old:     summaries.append(tf.histogram_summary(variable.op.name, variable))
+                              ~~~~~~~~~~~~~~~~~~~~                              
+    New:     summaries.append(tf.summary.histogram(variable.op.name, variable))
+                              ~~~~~~~~~~~~~~~~~~~~                              
+
+
