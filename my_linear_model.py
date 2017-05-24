@@ -66,10 +66,8 @@ def embedding_input():
 
 
 def main():
-    # my_linear_classfier1()
-    feature_columns = []
-    for i in COLUMNS:
-        feature_columns.append(tf.contrib.layers.real_valued_column(i))
+    feature_columns = [tf.contrib.layers.real_valued_column(k)
+                    for k in COLUMNS]
     # model_dir = "/media/zh/E/test/Linear_model/"
     m = tf.contrib.learn.LinearClassifier(feature_columns=feature_columns,
         optimizer=tf.train.FtrlOptimizer(
