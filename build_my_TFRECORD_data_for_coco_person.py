@@ -99,17 +99,17 @@ import nltk.tokenize
 import numpy as np
 import tensorflow as tf
 
-tf.flags.DEFINE_string("train_image_dir", "/media/zh/E/im2txt/data/mscoco/raw-data/train2014/",
+tf.flags.DEFINE_string("train_image_dir", "/home/store-1-img/zhenghe/im2txt/data/mscoco/raw-data/train2014/",
                        "Training image directory.")
-tf.flags.DEFINE_string("val_image_dir", "/media/zh/E/im2txt/data/mscoco/raw-data/val2014",
+tf.flags.DEFINE_string("val_image_dir", "/home/store-1-img/zhenghe/im2txt/data/mscoco/raw-data/val2014",
                        "Validation image directory.")
 
-tf.flags.DEFINE_string("train_captions_file", "/home/zh/Downloads/Data.npy",
+tf.flags.DEFINE_string("train_captions_file", "/home/store-1-img/zhenghe/transfer/Data.npy",
                        "Training captions numpy file.")
-tf.flags.DEFINE_string("val_captions_file", "/media/zh/E/im2txt/data/mscoco/raw-data/annotations/captions_val2014.json",
+tf.flags.DEFINE_string("val_captions_file", "/home/store-1-img/zhenghe/im2txt/data/mscoco/raw-data/annotations/captions_val2014.json",
                        "Validation captions JSON file.")
 
-tf.flags.DEFINE_string("output_dir", "/media/zh/E/coco_person/TFRECORD_data", "Output data directory.")
+tf.flags.DEFINE_string("output_dir", "/home/store-1-img/zhenghe/coco_person/TFRECORD_data", "Output data directory.")
 
 tf.flags.DEFINE_integer("train_shards", 32,
                         "Number of shards in training TFRecord files.")
@@ -127,7 +127,7 @@ tf.flags.DEFINE_string("unknown_word", "<UNK>",
 tf.flags.DEFINE_integer("min_word_count", 4,
                         "The minimum number of occurrences of each word in the "
                         "training set for inclusion in the vocabulary.")
-tf.flags.DEFINE_string("word_counts_output_file", "/media/zh/E/coco_person/TFRECORD_data/word_counts.txt",
+tf.flags.DEFINE_string("word_counts_output_file", "/home/store-1-img/zhenghe/coco_person/TFRECORD_data/word_counts.txt",
                        "Output vocabulary file of word counts.")
 
 tf.flags.DEFINE_integer("num_threads", 8,
