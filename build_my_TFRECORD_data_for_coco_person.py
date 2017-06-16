@@ -111,7 +111,7 @@ tf.flags.DEFINE_string("val_captions_file", "/media/zh/E/im2txt/data/mscoco/raw-
 
 tf.flags.DEFINE_string("output_dir", "/media/zh/E/coco_person/TFRECORD_data", "Output data directory.")
 
-tf.flags.DEFINE_integer("train_shards", 8,
+tf.flags.DEFINE_integer("train_shards", 32,
                         "Number of shards in training TFRecord files.")
 tf.flags.DEFINE_integer("val_shards", 2,
                         "Number of shards in validation TFRecord files.")
