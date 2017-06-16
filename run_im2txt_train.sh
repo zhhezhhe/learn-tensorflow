@@ -11,6 +11,6 @@ export CUDA_VISIBLE_DEVICES="0"
 bazel-bin/im2txt/train \
   --input_file_pattern="${MSCOCO_DIR}/train-?????-of-00256" \
   --inception_checkpoint_file="${INCEPTION_CHECKPOINT}" \
-  --train_dir="${MODEL_DIR}/train" \
+  --train_dir="${MODEL_DIR}/traintest" \
   --train_inception=false \
-  --number_of_steps=1000000 > ${outpath} 2>&1 &
+  --number_of_steps=1000000
