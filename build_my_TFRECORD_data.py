@@ -29,10 +29,10 @@ tf.flags.DEFINE_string("val_list", "/media/zh/E/flickr8kcn/val_list.csv",
 
 tf.flags.DEFINE_string("test_list", "/media/zh/E/flickr8kcn/test_list.csv",
                        "test image list directory.")
-tf.flags.DEFINE_string("captions_file", "/media/zh/E/flickr8kcn/caption.csv",
+tf.flags.DEFINE_string("captions_file", "/media/zh/E/flickr8kcn/captionen.csv",
                        "captions csv file.")
 
-tf.flags.DEFINE_string("output_dir", "/media/zh/E/flickr8kcn/TFRECORD_data", "Output data directory.")
+tf.flags.DEFINE_string("output_dir", "/media/zh/E/flickr8ken/TFRECORD_data", "Output data directory.")
 
 tf.flags.DEFINE_integer("train_shards", 8,
                         "Number of shards in training TFRecord files.")
@@ -50,7 +50,7 @@ tf.flags.DEFINE_string("unknown_word", "<UNK>",
 tf.flags.DEFINE_integer("min_word_count", 4,
                         "The minimum number of occurrences of each word in the "
                         "training set for inclusion in the vocabulary.")
-tf.flags.DEFINE_string("word_counts_output_file", "/media/zh/E/flickr8kcn/TFRECORD_data/word_counts.txt",
+tf.flags.DEFINE_string("word_counts_output_file", "/media/zh/E/flickr8ken/TFRECORD_data/word_counts.txt",
                        "Output vocabulary file of word counts.")
 
 tf.flags.DEFINE_integer("num_threads", 8,
@@ -335,10 +335,12 @@ def _load_and_process_metadata(captions_file, list ,image_dir):
   with codecs.open(csv_caption_file, "r", "utf-8") as csvfile:
       for line in csvfile.readlines():
           line = line.strip().split(',')
-          caption_all.append(line[0])
+          target = line[0]
+          if not target.endswith("."):
+            target += "."
+          caption_all.append(target)
 
   id_to_captions = {}
-
   def _match(item):
       N = len(item)
       for cell in caption_all:
@@ -352,10 +354,17 @@ def _load_and_process_metadata(captions_file, list ,image_dir):
           id_to_captions.setdefault(image_id[i], [])
       resItem = _match(image_id[i])
       if resItem != None:
-          tmpCaption1 = resItem.split(' ')[-1]
-          tmpCaption = tmpCaption1.split('。')[0]
-          id_to_captions[image_id[i]].append(tmpCaption)
-
+          ###### en
+          tmpCaption = " ".join(resItem.strip().split("jpg#")[-1].split(" ")[1:]).split('.')[:-1]
+          # tmpCaption = tmpCaption1.split('。')[0]
+          # tmpCaption = tmpCaption1.split('.')[0]
+          ###### zhongwen
+          # tmpCaption1 = resItem.split(' ')[-1]
+          # tmpCaption = tmpCaption1.split('。')[0]
+          # id_to_captions[image_id[i]].append(tmpCaption)
+          id_to_captions[image_id[i]].extend(tmpCaption)
+  print(id_to_captions)
+  print(id_to_captions['3355756569_b430a29c2a'][0])
   print("Loaded caption metadata for %d images from %s" %
         (len(id_to_captions), captions_file))
 
@@ -366,8 +375,8 @@ def _load_and_process_metadata(captions_file, list ,image_dir):
   id = 0
   for base_filename in image_id:
     filename = os.path.join(image_dir, base_filename + '.jpg')
-    # captions = [_process_caption(c) for c in id_to_captions[base_filename]]
-    captions = [_process_caption_jieba(c) for c in id_to_captions[base_filename]]
+    captions = [_process_caption(c) for c in id_to_captions[base_filename]]
+    # captions = [_process_caption_jieba(c) for c in id_to_captions[base_filename]]
 
     image_metadata.append(ImageMetadata(id, filename, captions))
     id = id + 1
@@ -396,10 +405,10 @@ def main(unused_argv):
     # Load image metadata from caption files.
     train_dataset = _load_and_process_metadata(FLAGS.captions_file,
                                                       FLAGS.train_list,FLAGS.image_dir)
-    val_dataset = _load_and_process_metadata(FLAGS.captions_file,
-                                                    FLAGS.val_list,FLAGS.image_dir)
-    test_dataset = _load_and_process_metadata(FLAGS.captions_file,
-                                                     FLAGS.test_list, FLAGS.image_dir)
+    # val_dataset = _load_and_process_metadata(FLAGS.captions_file,
+    #                                                 FLAGS.val_list,FLAGS.image_dir)
+    # test_dataset = _load_and_process_metadata(FLAGS.captions_file,
+                                                     # FLAGS.test_list, FLAGS.image_dir)
 
 
     # Create vocabulary from the training captions.
@@ -407,12 +416,11 @@ def main(unused_argv):
     # print(train_captions)
     vocab = _create_vocab(train_captions)
 
-    _process_dataset("train", train_dataset, vocab, FLAGS.train_shards)
-    _process_dataset("val", val_dataset, vocab, FLAGS.val_shards)
-    _process_dataset("test", test_dataset, vocab, FLAGS.test_shards)
+    # _process_dataset("train", train_dataset, vocab, FLAGS.train_shards)
+    # _process_dataset("val", val_dataset, vocab, FLAGS.val_shards)
+    # _process_dataset("test", test_dataset, vocab, FLAGS.test_shards)
 
     # print(id_to_captions['2513260012_03d33305cf'])
 if __name__ == "__main__":
   tf.app.run()
-
 
