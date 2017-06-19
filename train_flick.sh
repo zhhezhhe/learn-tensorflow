@@ -1,11 +1,11 @@
 #!/bin/sh
 
-outpath=/home/store-1-img/zhenghe/flickr8kcn/im2txt_for_flick_log.csv
+outpath=/home/store-1-img/zhenghe/flickr8ken/im2txt_for_flick_en_log.csv
 
 cd /home/store-1-img/zhenghe/models/im2txt_for_flick
-FLICK_DIR="/home/store-1-img/zhenghe/flickr8kcn/TFRECORD_data"
+FLICK_DIR="/home/store-1-img/zhenghe/flickr8ken/TFRECORD_data"
 INCEPTION_CHECKPOINT="/home/store-1-img/zhenghe/im2txt/data/inception_v3.ckpt"
-MODEL_DIR="/home/store-1-img/zhenghe/flickr8kcn/model"
+MODEL_DIR="/home/store-1-img/zhenghe/flickr8ken/model"
 bazel build -c opt im2txt/...
 export CUDA_VISIBLE_DEVICES="2"
 bazel-bin/im2txt/train \
@@ -13,4 +13,4 @@ bazel-bin/im2txt/train \
   --inception_checkpoint_file="${INCEPTION_CHECKPOINT}" \
   --train_dir="${MODEL_DIR}/train" \
   --train_inception=false \
-  --number_of_steps=1000000 > ${outpath} 2>&1 &
+  --number_of_steps=100000 > ${outpath} 2>&1 &
