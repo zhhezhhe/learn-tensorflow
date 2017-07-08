@@ -6,16 +6,16 @@ from __future__ import print_function
 from collections import Counter
 from collections import namedtuple
 from datetime import datetime
-import json
+# import json
 import os.path
 import random
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 import threading
-import csv
-import codecs
-import nltk.tokenize
+# import csv
+# import codecs
+# import nltk.tokenize
 import jieba
 import numpy as np
 import tensorflow as tf
@@ -346,7 +346,6 @@ def _load_and_process_metadata(captions_file, image_dir):
     filename = os.path.join(image_dir, base_filename + '.jpg')
     # captions = [_process_caption(c) for c in id_to_captions[base_filename]]
     captions = [_process_caption_jieba(c) for c in id_to_captions[base_filename]]
-    print(captions)
     image_metadata.append(ImageMetadata(id, filename, captions))
     id = id + 1
     num_captions += len(captions)
