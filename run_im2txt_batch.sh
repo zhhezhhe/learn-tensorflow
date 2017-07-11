@@ -6,7 +6,7 @@ VOCAB_FILE="/media/zh/E/im2txt/data/mscoco/word_counts.txt"
 #IMAGE_FILE="${HOME}/zhenghe/imageForTest/images_coco/COCO_train2014_000000029799.jpg"
 #bazel build -c opt im2txt/run_inference
 export CUDA_VISIBLE_DEVICES="0"
-file=`ls /media/zh/E/images_coco/a/*.jpg`
+file=`ls /media/zh/E/images_coco/b/*.jpg`
 IMAGE_FILE=''
 for name in $file
 do

@@ -314,7 +314,7 @@ def _process_caption_jieba(caption):
   tokenized_caption.append(FLAGS.end_word)
   return tokenized_caption
 
-def _load_and_process_metadata(captions_file, list ,image_dir):
+def _load_and_process_metadata(captions_file, train_file_list ,image_dir):
   """Loads image metadata from a JSON file and processes the captions.
   Args:
     captions_file: csv file containing caption annotations.
@@ -323,7 +323,7 @@ def _load_and_process_metadata(captions_file, list ,image_dir):
     A list of ImageMetadata.
   """
   # csv_train_file = "/media/zh/E/flickr8kcn/train_list.csv"
-  csv_train_file = list
+  csv_train_file = train_file_list
   image_id = []
   caption_all = []
   with codecs.open(csv_train_file, "r", "utf-8") as csvfile:

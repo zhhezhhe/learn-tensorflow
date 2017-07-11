@@ -6,7 +6,7 @@ from __future__ import print_function
 from collections import Counter
 from collections import namedtuple
 from datetime import datetime
-# import json
+import json
 import os.path
 import random
 import sys
@@ -19,18 +19,18 @@ import threading
 import jieba
 import numpy as np
 import tensorflow as tf
-tf.flags.DEFINE_string("image_dir", "Flicker8k_Dataset",
+tf.flags.DEFINE_string("image_dir", "/media/zh/D/download/caption_20170707_1_50000",
                        "image directory.")
-tf.flags.DEFINE_string("captions_file", "chuangxin-caption-20170707-1-10000.txt",
+tf.flags.DEFINE_string("captions_file", "/media/zh/D/download/chuangxin-caption-20170707-1-50000.txt",
                        "captions txt file.")
 
-tf.flags.DEFINE_string("output_dir", "TFRECORD_data", "Output data directory.")
+tf.flags.DEFINE_string("output_dir", "/media/zh/D/chuangxinTFRECORD_data", "Output data directory.")
 
-tf.flags.DEFINE_integer("train_shards", 8,
+tf.flags.DEFINE_integer("train_shards", 64,
                         "Number of shards in training TFRecord files.")
-tf.flags.DEFINE_integer("val_shards", 2,
+tf.flags.DEFINE_integer("val_shards", 8,
                         "Number of shards in validation TFRecord files.")
-tf.flags.DEFINE_integer("test_shards", 4,
+tf.flags.DEFINE_integer("test_shards", 8,
                         "Number of shards in testing TFRecord files.")
 
 tf.flags.DEFINE_string("start_word", "<S>",
@@ -42,7 +42,7 @@ tf.flags.DEFINE_string("unknown_word", "<UNK>",
 tf.flags.DEFINE_integer("min_word_count", 4,
                         "The minimum number of occurrences of each word in the "
                         "training set for inclusion in the vocabulary.")
-tf.flags.DEFINE_string("word_counts_output_file", "/media/zh/E/flickr8kcn/TFRECORD_data/word_counts.txt",
+tf.flags.DEFINE_string("word_counts_output_file", "/media/zh/D/chuangxinTFRECORD_data/word_counts.txt",
                        "Output vocabulary file of word counts.")
 
 tf.flags.DEFINE_integer("num_threads", 8,
@@ -318,24 +318,49 @@ def _load_and_process_metadata(captions_file, image_dir):
   image_id = []
   id_to_captions = {}
   caption_num_to_use = 5
-  with open('chuangxin-caption-20170707-1-10000.txt', 'r') as file_object:
-      lines = file_object.readlines()
-      for line in lines:
-          filename = line.strip().split(']')
-          text_split = filename[0].split('"')
-          image_name = text_split[3].split('.')[0]
+  with open(captions_file, 'rt') as f:
+      file_write=open('/media/zh/D/re_use.txt','w+')
+      for _, line in enumerate(f):
+          x = json.loads(line)
+          image_name = x['image'].split('.')[0]
+          if 'descriptions' in x.keys():
+              descriptions = x['descriptions']
+          else:
+              descriptions = x['captions']
           if image_name not in id_to_captions.keys():
               image_id.append(image_name)
-          descriptions = filename[0].split('[')[1].split(',')
-          caption_num = len(descriptions)
-          assert caption_num >= 5
-          for i in range(caption_num_to_use):
-              caption_temp = descriptions[i].split('"')[1].decode("unicode-escape")
-              if image_name not in id_to_captions.keys():
-                  id_to_captions.setdefault(image_name, [])
-              id_to_captions[image_name].append(caption_temp)
-  print("Loaded caption metadata for %d images from %s" %
-        (len(id_to_captions), captions_file))
+              caption_num = len(descriptions)
+              assert caption_num >= 5
+              for i in range(caption_num_to_use):
+                  caption_temp = descriptions[i]
+                  if image_name not in id_to_captions.keys():
+                      id_to_captions.setdefault(image_name, [])
+                  id_to_captions[image_name].append(caption_temp)
+          else:
+              file_write.write(image_name+'\n')
+      file_write.close()
+  # with open(captions_file, 'r') as f:
+  #     for lines in f:
+  #     lines = file_object.readlines()
+  #     file_write=open('/media/zh/D/re_use.txt','w+')
+  #     for line in lines:
+  #         descriptions = line.strip().split(']')[0].split('[')[1].split(',')
+  #         image_name = line.strip().split('image')[1].split('"')[2].split('.')[0]
+  #         if image_name not in id_to_captions.keys():
+  #             image_id.append(image_name)
+  #             caption_num = len(descriptions)
+  #             assert caption_num >= 5
+  #             for i in range(caption_num_to_use):
+  #                 caption_temp = descriptions[i].split('"')[1].decode("unicode-escape")
+
+  #                 if image_name not in id_to_captions.keys():
+  #                     id_to_captions.setdefault(image_name, [])
+  #                 id_to_captions[image_name].append(caption_temp)
+  #         else:
+  #             file_write.write(image_name+'\n')
+  #     file_write.close()
+  print("Loaded caption metadata for %d images from %s and image_id num is %s" %
+        (len(id_to_captions), captions_file, len(image_id)))
 
   # Process the captions and combine the data into a list of ImageMetadata.
   print("Proccessing captions.")
@@ -351,7 +376,6 @@ def _load_and_process_metadata(captions_file, image_dir):
     num_captions += len(captions)
   print("Finished processing %d captions for %d images in %s" %
         (num_captions, len(id_to_captions), captions_file))
-  exit()
   return image_metadata
 
 def main(unused_argv):
@@ -372,8 +396,8 @@ def main(unused_argv):
 
     # Load image metadata from caption files.
     train_dataset = _load_and_process_metadata(FLAGS.captions_file,FLAGS.image_dir)
-    val_dataset = _load_and_process_metadata(FLAGS.captions_file,FLAGS.image_dir)
-    test_dataset = _load_and_process_metadata(FLAGS.captions_file,FLAGS.image_dir)
+    # val_dataset = _load_and_process_metadata(FLAGS.captions_file,FLAGS.image_dir)
+    # test_dataset = _load_and_process_metadata(FLAGS.captions_file,FLAGS.image_dir)
 
 
     # Create vocabulary from the training captions.
@@ -382,8 +406,8 @@ def main(unused_argv):
     vocab = _create_vocab(train_captions)
 
     _process_dataset("train", train_dataset, vocab, FLAGS.train_shards)
-    _process_dataset("val", val_dataset, vocab, FLAGS.val_shards)
-    _process_dataset("test", test_dataset, vocab, FLAGS.test_shards)
+    # _process_dataset("val", val_dataset, vocab, FLAGS.val_shards)
+    # _process_dataset("test", test_dataset, vocab, FLAGS.test_shards)
 
     # print(id_to_captions['2513260012_03d33305cf'])
 if __name__ == "__main__":
