@@ -19,16 +19,16 @@ import threading
 import jieba
 import numpy as np
 import tensorflow as tf
-tf.flags.DEFINE_string("image_dir", "/media/zh/D/download/caption_20170707_1_50000",
+tf.flags.DEFINE_string("image_dir", "/media/zh/D/download/caption_facepp_50000/",
                        "image directory.")
 tf.flags.DEFINE_string("captions_file", "/media/zh/D/download/chuangxin-caption-20170707-1-50000.txt",
                        "captions txt file.")
 
 tf.flags.DEFINE_string("output_dir", "/media/zh/D/chuangxinTFRECORD_data", "Output data directory.")
 
-tf.flags.DEFINE_integer("train_shards", 64,
+tf.flags.DEFINE_integer("train_shards", 256,
                         "Number of shards in training TFRecord files.")
-tf.flags.DEFINE_integer("val_shards", 8,
+tf.flags.DEFINE_integer("val_shards", 4,
                         "Number of shards in validation TFRecord files.")
 tf.flags.DEFINE_integer("test_shards", 8,
                         "Number of shards in testing TFRecord files.")
@@ -319,7 +319,7 @@ def _load_and_process_metadata(captions_file, image_dir):
   id_to_captions = {}
   caption_num_to_use = 5
   with open(captions_file, 'rt') as f:
-      file_write=open('/media/zh/D/re_use.txt','w+')
+      # file_write=open('/media/zh/D/re_use.txt','w+')
       for _, line in enumerate(f):
           x = json.loads(line)
           image_name = x['image'].split('.')[0]
@@ -336,9 +336,9 @@ def _load_and_process_metadata(captions_file, image_dir):
                   if image_name not in id_to_captions.keys():
                       id_to_captions.setdefault(image_name, [])
                   id_to_captions[image_name].append(caption_temp)
-          else:
-              file_write.write(image_name+'\n')
-      file_write.close()
+          # else:
+              # file_write.write(image_name+'\n')
+      # file_write.close()
   # with open(captions_file, 'r') as f:
   #     for lines in f:
   #     lines = file_object.readlines()
