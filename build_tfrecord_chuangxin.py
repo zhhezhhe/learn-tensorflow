@@ -19,14 +19,14 @@ import threading
 import jieba
 import numpy as np
 import tensorflow as tf
-tf.flags.DEFINE_string("image_dir", "/media/zh/D/download/caption_facepp_50000/",
+tf.flags.DEFINE_string("image_dir", "/home/store-1-img/zhenghe/caption_faceplusplus/caption_facepp_50000/",
                        "image directory.")
-tf.flags.DEFINE_string("captions_file", "/media/zh/D/download/chuangxin-caption-20170707-1-50000.txt",
+tf.flags.DEFINE_string("captions_file", "/home/store-1-img/zhenghe/caption_faceplusplus/chuangxin-caption-20170707-1-50000.txt",
                        "captions txt file.")
 
-tf.flags.DEFINE_string("output_dir", "/media/zh/D/chuangxinTFRECORD_data", "Output data directory.")
+tf.flags.DEFINE_string("output_dir", "/home/store-1-img/zhenghe/caption_faceplusplus/chuangxinTFRECORD_data", "Output data directory.")
 
-tf.flags.DEFINE_integer("train_shards", 256,
+tf.flags.DEFINE_integer("train_shards", 224,
                         "Number of shards in training TFRecord files.")
 tf.flags.DEFINE_integer("val_shards", 4,
                         "Number of shards in validation TFRecord files.")
@@ -42,10 +42,10 @@ tf.flags.DEFINE_string("unknown_word", "<UNK>",
 tf.flags.DEFINE_integer("min_word_count", 4,
                         "The minimum number of occurrences of each word in the "
                         "training set for inclusion in the vocabulary.")
-tf.flags.DEFINE_string("word_counts_output_file", "/media/zh/D/chuangxinTFRECORD_data/word_counts.txt",
+tf.flags.DEFINE_string("word_counts_output_file", "/home/store-1-img/zhenghe/caption_faceplusplus/chuangxinTFRECORD_data/word_counts.txt",
                        "Output vocabulary file of word counts.")
 
-tf.flags.DEFINE_integer("num_threads", 8,
+tf.flags.DEFINE_integer("num_threads", 56,
                         "Number of threads to preprocess the images.")
 
 FLAGS = tf.flags.FLAGS
@@ -323,10 +323,7 @@ def _load_and_process_metadata(captions_file, image_dir):
       for _, line in enumerate(f):
           x = json.loads(line)
           image_name = x['image'].split('.')[0]
-          if 'descriptions' in x.keys():
-              descriptions = x['descriptions']
-          else:
-              descriptions = x['captions']
+          descriptions = x['captions']
           if image_name not in id_to_captions.keys():
               image_id.append(image_name)
               caption_num = len(descriptions)
