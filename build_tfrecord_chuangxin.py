@@ -329,7 +329,7 @@ def _load_and_process_metadata(captions_file, image_dir):
               caption_num = len(descriptions)
               assert caption_num >= 5
               for i in range(caption_num_to_use):
-                  caption_temp = descriptions[i]
+                  caption_temp = descriptions[i].strip().strip("。")
                   if image_name not in id_to_captions.keys():
                       id_to_captions.setdefault(image_name, [])
                   id_to_captions[image_name].append(caption_temp)
