@@ -315,25 +315,39 @@ def _load_and_process_metadata(captions_file, image_dir):
     A list of ImageMetadata.
   """
   # csv_train_file = "/media/zh/E/flickr8kcn/train_list.csv"
-  image_id = []
+  image_id = set([])
   id_to_captions = {}
-  caption_num_to_use = 5
+  # caption_num_to_use = 5
   with open(captions_file, 'rt') as f:
       # file_write=open('/media/zh/D/re_use.txt','w+')
       for _, line in enumerate(f):
           x = json.loads(line)
           image_name = x['image'].split('.')[0]
           descriptions = x['captions']
-          if image_name not in id_to_captions.keys():
-              image_id.append(image_name)
+          if image_name not in image_id:
               caption_num = len(descriptions)
               assert caption_num >= 5
-              for i in range(caption_num_to_use):
-                  caption_temp = descriptions[i].strip().strip("。")
-                  if image_name not in id_to_captions.keys():
+              for i in range(caption_num):
+                  caption_temp = descriptions[i].strip().strip("。").replace('\n','')
+                  if image_name not in image_id:
+                      #print('add %s' % image_name )
                       id_to_captions.setdefault(image_name, [])
-                  id_to_captions[image_name].append(caption_temp)
-          # else:
+                      image_id.add(image_name)
+                  if len(id_to_captions[image_name]) < 5 and caption_temp != '':
+                      id_to_captions[image_name].append(caption_temp)
+                      # print(i,image_name)
+                      # print(caption_temp)
+          else:
+              if len(id_to_captions[image_name]) < 5:
+                  caption_num = len(descriptions)
+                  assert caption_num >= 5
+                  for i in range(caption_num):
+                      if len(id_to_captions[image_name]) < 5 and caption_temp != '':
+                          caption_temp = descriptions[i].strip().strip("。").replace('\n','')
+                          id_to_captions[image_name].append(caption_temp)
+                          # print('------------------------------')
+                          # print(i,image_name)
+                          # print(caption_temp)
               # file_write.write(image_name+'\n')
       # file_write.close()
   # with open(captions_file, 'r') as f:
@@ -356,6 +370,7 @@ def _load_and_process_metadata(captions_file, image_dir):
   #         else:
   #             file_write.write(image_name+'\n')
   #     file_write.close()
+  
   print("Loaded caption metadata for %d images from %s and image_id num is %s" %
         (len(id_to_captions), captions_file, len(image_id)))
 
