@@ -7,9 +7,9 @@ CHUANGXIN_DIR="/home/store-1-img/zhenghe/caption_faceplusplus/chuangxinTFRECORD_
 INCEPTION_CHECKPOINT="/home/store-1-img/zhenghe/im2txt/data/inception_v3.ckpt"
 MODEL_DIR="/home/store-1-img/zhenghe/chuangxin_data/model_100000"
 bazel build -c opt im2txt/...
-export CUDA_VISIBLE_DEVICES="2"
+export CUDA_VISIBLE_DEVICES="0"
 bazel-bin/im2txt/train \
-  --input_file_pattern="${CHUANGXIN_DIR}/train-?????-of-00224" \
+  --input_file_pattern="${CHUANGXIN_DIR}/train-?????-of-00280" \
   --inception_checkpoint_file="${INCEPTION_CHECKPOINT}" \
   --train_dir="${MODEL_DIR}/train" \
   --train_inception=false \
