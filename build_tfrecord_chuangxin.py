@@ -24,9 +24,9 @@ tf.flags.DEFINE_string("image_dir", "/home/store-1-img/zhenghe/caption_faceplusp
 tf.flags.DEFINE_string("captions_file", "/home/store-1-img/zhenghe/caption_faceplusplus/chuangxin-caption-20170719-1-100000.txt",
                        "captions txt file.")
 
-tf.flags.DEFINE_string("output_dir", "/home/store-1-img/zhenghe/caption_faceplusplus/chuangxinTFRECORD_data_100000", "Output data directory.")
+tf.flags.DEFINE_string("output_dir", "/home/store-1-img/zhenghe/caption_faceplusplus/chuangxinTFRECORD_data_100000_test", "Output data directory.")
 
-tf.flags.DEFINE_integer("train_shards", 224,
+tf.flags.DEFINE_integer("train_shards", 280,
                         "Number of shards in training TFRecord files.")
 tf.flags.DEFINE_integer("val_shards", 4,
                         "Number of shards in validation TFRecord files.")
@@ -42,7 +42,7 @@ tf.flags.DEFINE_string("unknown_word", "<UNK>",
 tf.flags.DEFINE_integer("min_word_count", 4,
                         "The minimum number of occurrences of each word in the "
                         "training set for inclusion in the vocabulary.")
-tf.flags.DEFINE_string("word_counts_output_file", "/home/store-1-img/zhenghe/caption_faceplusplus/chuangxinTFRECORD_data_100000/word_counts.txt",
+tf.flags.DEFINE_string("word_counts_output_file", "/home/store-1-img/zhenghe/caption_faceplusplus/chuangxinTFRECORD_data_100000_test/word_counts.txt",
                        "Output vocabulary file of word counts.")
 
 tf.flags.DEFINE_integer("num_threads", 56,
