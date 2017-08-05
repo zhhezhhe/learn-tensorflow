@@ -4,7 +4,7 @@ CHECKPOINT_PATH="/home/store-1-img/zhenghe/chuangxin_data/model_100000/train"
 VOCAB_FILE="/home/store-1-img/zhenghe/caption_faceplusplus/chuangxinTFRECORD_data_100000/word_counts.txt"
 #IMAGE_FILE="${HOME}/zhenghe/im2txt/data/mscoco/raw-data/val2014/COCO_val2014_000000224477.jpg"
 #IMAGE_FILE="${HOME}/zhenghe/imageForTest/images_coco/COCO_train2014_000000029799.jpg"
-#bazel build -c opt im2txt/run_inference
+bazel build -c opt im2txt/run_inference
 export CUDA_VISIBLE_DEVICES=""
 #file=`ls /home/store-1-img/zhenghe/caption_faceplusplus/caption_20170707_1_10000/9*.jpg`
 file='/home/store-1-img/zhenghe/image_test/*.jpg'
