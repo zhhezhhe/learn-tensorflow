@@ -1,10 +1,10 @@
-OLD_CHECKPOINT_FILE = ".../model.ckpt-2000000"
-NEW_CHECKPOINT_FILE = ".../model.ckpt-2000000"
+OLD_CHECKPOINT_FILE = "/media/zh/E/im2txt/model/train/model.ckpt-559343"
+NEW_CHECKPOINT_FILE = "/media/zh/E/im2txt/model/train/model.ckpt-559343"
 
 import tensorflow as tf
 vars_to_rename = {
-    "lstm/BasicLSTMCell/Linear/Matrix": "lstm/basic_lstm_cell/weights",
-    "lstm/BasicLSTMCell/Linear/Bias": "lstm/basic_lstm_cell/biases",
+    "lstm/basic_lstm_cell/weights": "lstm/basic_lstm_cell/kernel",
+    "lstm/basic_lstm_cell/biases": "lstm/basic_lstm_cell/bias",
 }
 new_checkpoint_vars = {}
 reader = tf.train.NewCheckpointReader(OLD_CHECKPOINT_FILE)
