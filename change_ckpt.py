@@ -1,5 +1,5 @@
-OLD_CHECKPOINT_FILE = "/media/zh/E/im2txt/model/train/model.ckpt-559343"
-NEW_CHECKPOINT_FILE = "/media/zh/E/im2txt/model/train/model.ckpt-559343"
+OLD_CHECKPOINT_FILE = "/home/store-1-img/zhenghe/chuangxin_data/model_100000/train/model.ckpt-1742043"
+NEW_CHECKPOINT_FILE = "/home/store-1-img/zhenghe/chuangxin_data/model_100000/train/model.ckpt-1742043"
 
 import tensorflow as tf
 vars_to_rename = {
